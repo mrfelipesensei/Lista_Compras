@@ -15,6 +15,16 @@ def adicionar_item():
 
     print(f"{quantidade}x {item} adicionado(s) à lista de compras.")
 
+def remover_item():
+    item = input("Digite o nome do item a ser removido: ")
+
+    if item in lista_compras:
+        del lista_compras[item]
+        print(f"{item} removido da lista")
+    else:
+        print("Item não encontrado.")
+
+
 def menu():
     while True:
         print("\n1. Adicionar item\n2. Remover item\n3. Exibir lista\n4. Sair")
@@ -22,6 +32,8 @@ def menu():
 
         if opcao == "1":
             adicionar_item()
+        elif opcao == "2":
+            remover_item()
         elif opcao == "4":
             print("Saindo do programa. Até mais!")
             break
