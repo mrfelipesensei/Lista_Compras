@@ -110,3 +110,37 @@ def editar_item():
     salvar_lista() #Salva automaticamente após editar um item
 
 '''
+#Criar a janela principal
+janela = tk.Tk()
+janela.title("Lista de Compras")
+janela.geometry("400x450")
+
+#Widgets de entrada
+tk.Label(janela, text="Item: ").pack()
+entrada_item = tk.Entry(janela)
+entrada_item.pack()
+
+tk.Label(janela, text="Quantidade: ").pack()
+entrada_quantidade = tk.Entry(janela)
+entrada_quantidade.pack()
+
+tk.Label(janela, text="Preço unitário (R$):").pack()
+entrada_preco = tk.Entry(janela)
+entrada_preco.pack()
+
+#Botões de ação
+btn_adicionar = tk.Button(janela, text="Adicionar", command=adicionar_item)
+btn_adicionar.pack()
+
+btn_remover = tk.Button(janela, text="Remover",command=remover_item)
+btn_remover.pack()
+
+#Lista de Compras
+lista_box = tk.Listbox(janela, width=50)
+lista_box.pack()
+
+#Carregar dados e atualizar lista ao iniciar
+carregar_lista()
+
+#Executar a interface gráfica
+janela.mainloop()
