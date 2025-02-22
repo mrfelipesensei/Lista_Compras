@@ -1,3 +1,5 @@
+import tkinter as tk
+from tkinter import messagebox
 import json
 import os
 
@@ -19,10 +21,14 @@ def carregar_lista():
     if os.path.exists(ARQUIVO_JSON): #Verifica se o arquivo existe
         with open(ARQUIVO_JSON, "r") as file:
             lista_compras = json.load(file)
-        print("Lista carregada com sucesso!")
-    else:
-        print("Nenhuma lista encontrada. Criando uma nova.")
+    atualizar_lista()
 
+
+#Função de atualizar a exibição da lista na interface
+def atualizar_lista():
+    lista_box.delete(0,tk.END) #Limpa a exibição
+    for item, (quantidade, preco) in lista_compras.items():
+        lista_box.insert(tk.END, f"{quantidade} x {item} - R$ {preco:.2f}")
 
 #Função de adicionar item
 def adicionar_item():
