@@ -73,6 +73,25 @@ def remover_item():
         salvar_lista()
         atualizar_lista()
 
+#Preencher os campos para edição
+def preencher_campos():
+    selecionado = lista_box.curselection()
+    if not selecionado:
+        messagebox.showwarning("Aviso","Selecione um item para editar!")
+        return
+
+    item_texto = lista_box.get(selecionado[0])
+    item_nome = item_texto.split("x ")[1].split(" - ")[0]
+
+    entrada_item.delete(0, tk.END)
+    entrada_quantidade.delete(0, tk.END)
+    entrada_preco.delete(0, tk.END)
+
+    entrada_item.insert(0, item_nome)
+    entrada_quantidade.insert(0, lista_compras[item_nome][0])
+    entrada_preco.insert(0, lista_compras[item_nome][1])
+
+
 #Editar item
 def editar_item():
     item = entrada_item.get().strip().lower()
@@ -95,7 +114,11 @@ def editar_item():
     atualizar_lista()
     limpar_campos()
 
+#Limpar os campos de entrada
 def limpar_campos():
+    entrada_item.delete(0, tk.END)
+    entrada_quantidade.delete(0, tk.END)
+    entrada_preco.delete(0, tk.END)
 
 
 #Criar a janela principal
@@ -132,6 +155,12 @@ entrada_preco.pack()
 #Botões de ação
 btn_adicionar = tk.Button(janela, text="Adicionar", command=adicionar_item)
 btn_adicionar.pack()
+
+btn_editar = tk.Button(janela, text="Preencher para Edição", command=preencher_campos)
+btn_editar.pack()
+
+btn_atualizar = tk.Button(janela, text="Atualizar",command=editar_item)
+btn_atualizar.pack()
 
 btn_remover = tk.Button(janela, text="Remover",command=remover_item)
 btn_remover.pack()
