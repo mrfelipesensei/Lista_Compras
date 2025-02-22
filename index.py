@@ -24,7 +24,7 @@ def adicionar_item():
                 continue
             break
         except ValueError:
-            print("Valor inválido!")
+            print("Valor inválido! Digite um número!")
 
     #Lógica de verificação e adição do item à lista
     if item in lista_compras:
@@ -52,8 +52,25 @@ def editar_item():
     
     print(f"Item atual: {item} | Quantidade: {lista_compras[item][0]} | Preço: {lista_compras[item][1]:.2f}")
 
-    nova_quantidade = int(input("Nova quantidade (ou Enter para manter: )" or lista_compras[item][0]))
-    novo_preco = float(input("Novo preço unitário (ou Enter para manter): R$ "or lista_compras[item][1]))
+    while True:
+        try:
+            nova_quantidade = int(input("Nova quantidade (ou Enter para manter): ") or lista_compras[item][0])
+            if nova_quantidade <= 0:
+                print("A quantidade deve ser um número maior que zero!")
+                continue
+            break
+        except ValueError:
+            print("Valor inválido! Digite um número inteiro!")    
+    
+    while True:
+        try:
+            novo_preco = float(input("Novo preço unitário (ou Enter para manter): R$ ") or lista_compras[item][1])
+            if novo_preco <= 0:
+                print("O valor deve ser maior que zero!")
+                continue
+            break
+        except ValueError:
+            print("Valor inválido! Digite um número!")
 
     #Atualiza item na lista de compras
     lista_compras[item] = [nova_quantidade,novo_preco]
