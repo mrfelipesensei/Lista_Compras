@@ -35,13 +35,29 @@ def adicionar_item():
     print(f"{quantidade}x {item} adicionado(s) à lista de compras.")
 
 def remover_item():
-    item = input("Digite o nome do item a ser removido: ")
+    item = input("Digite o nome do item a ser removido: ").strip().lower()
 
     if item in lista_compras:
         del lista_compras[item]
         print(f"{item} removido da lista")
     else:
         print("Item não encontrado.")
+
+def editar_item():
+    item = input("Digite o nome do item para alterá-lo: ").strip().lower()
+
+    if item not in lista_compras:
+        print("Item não encontrado na lista.")
+        return
+    
+    print(f"Item atual: {item} | Quantidade: {lista_compras[item][0]} | Preço: {lista_compras[item][1]:.2f}")
+
+    nova_quantidade = int(input("Nova quantidade (ou Enter para manter: )" or lista_compras[item][0]))
+    novo_preco = float(input("Novo preço unitário (ou Enter para manter): R$ "or lista_compras[item][1]))
+
+    #Atualiza item na lista de compras
+    lista_compras[item] = [nova_quantidade,novo_preco]
+    print(f"{item} Atualizado! Nova quantidade: {nova_quantidade} e Novo preço: R$ {novo_preco:.2f}")
 
 def exibir_lista():
     if not lista_compras:
@@ -59,7 +75,7 @@ def exibir_lista():
 
 def menu():
     while True:
-        print("\n1. Adicionar item\n2. Remover item\n3. Exibir lista\n4. Sair")
+        print("\n1. Adicionar item\n2. Remover item\n3. Editar item\n4. Exibir lista\n5. Sair")
         opcao = input("Escolha uma opção: ")
 
         if opcao == "1":
@@ -67,8 +83,10 @@ def menu():
         elif opcao == "2":
             remover_item()
         elif opcao == "3":
-            exibir_lista()
+            editar_item()
         elif opcao == "4":
+            exibir_lista()
+        elif opcao == "5":
             print("Saindo do programa. Até mais!")
             break
         else:
