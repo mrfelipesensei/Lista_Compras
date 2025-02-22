@@ -61,15 +61,20 @@ def adicionar_item():
     entrada_preco.delete(0, tk.END)
 
 def remover_item():
-    item = input("Digite o nome do item a ser removido: ").strip().lower()
+    selecionado = lista_box.curselection()
+    if not selecionado:
+        messagebox.showwarning("Aviso","Selecione um item para remover!")
+        return
+    
+    item_texto = lista_box.get(selecionado[0])
+    item_nome = item_texto.split("x ")[1].split(" - ")[0]
 
-    if item in lista_compras:
-        del lista_compras[item]
-        print(f"{item} removido da lista")
-        salvar_lista() #Salva automaticamente após remover um item
-    else:
-        print("Item não encontrado.")
+    if item_nome in lista_compras:
+        del lista_compras[item_nome]
+        salvar_lista()
+        atualizar_lista()
 
+'''
 def editar_item():
     item = input("Digite o nome do item para alterá-lo: ").strip().lower()
 
@@ -104,40 +109,4 @@ def editar_item():
     print(f"{item} Atualizado! Nova quantidade: {nova_quantidade} e Novo preço: R$ {novo_preco:.2f}")
     salvar_lista() #Salva automaticamente após editar um item
 
-
-def exibir_lista():
-    if not lista_compras:
-        print("A lista de compras está vazia.")
-        return
-    
-    print("\nLista de compras: ")
-    total = 0
-    for item, (quantidade,preco) in lista_compras.items(): #Mostra os itens da lista
-        subtotal = quantidade * preco #Calcula o preço pela quantidade
-        total += subtotal #Soma o valor do item ao valor total
-        print(f" - {item}: {quantidade} unidade(s) | R$ {preco:.2f} cada | Subtotal R$ {subtotal:.2f}")
-
-    print(f"\nValor Total da compra: R$ {total:.2f}") #Exibe o valor da compra ao final
-
-def menu():
-    carregar_lista() #Carregar a lista ao iniciar o programa
-    while True:
-        print("\n1. Adicionar item\n2. Remover item\n3. Editar item\n4. Exibir lista\n5. Sair")
-        opcao = input("Escolha uma opção: ")
-
-        if opcao == "1":
-            adicionar_item()
-        elif opcao == "2":
-            remover_item()
-        elif opcao == "3":
-            editar_item()
-        elif opcao == "4":
-            exibir_lista()
-        elif opcao == "5":
-            print("Saindo do programa. Até mais!")
-            break
-        else:
-            print("Opção inválida!Tente novamente.")
-
-#Executar o menu
-menu()
+'''
