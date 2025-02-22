@@ -32,28 +32,20 @@ def atualizar_lista():
 
 #Função de adicionar item
 def adicionar_item():
-    item = input("Digite o nome do item: ").strip().lower()
+    item = entrada_item.get().strip().lower()
+    if not item:
+        messagebox.showerror("Aviso","Digite o nome do item!")
+        return
     
-    while True:
-        try:
-            quantidade = int(input("Digite a quantidade: "))
-            if quantidade <= 0:
-                print("A quantidade deve ser um número inteiro maior que zero!")
-                continue
-            break
-        except ValueError:
-            print("Valor inválido! Digite um número inteiro!")
-    
-    
-    while True:
-        try:
-            preco = float(input("Digite o preço unitário: "))
-            if preco <= 0:
-                print("O valor deve ser maior que zero!")
-                continue
-            break
-        except ValueError:
-            print("Valor inválido! Digite um número!")
+    try:
+        quantidade = int(entrada_quantidade.get())
+        preco = float(entrada_preco.get())
+        if quantidade <= 0 or preco <= 0:
+            raise ValueError
+    except ValueError:
+        messagebox.showerror("Erro","Quantidade e Preço devem ser números positivos!")
+        return
+
 
     #Lógica de verificação e adição do item à lista
     if item in lista_compras:
@@ -63,6 +55,10 @@ def adicionar_item():
 
     print(f"{quantidade}x {item} adicionado(s) à lista de compras.")
     salvar_lista() #Salva automaticamente após adicionar um item
+    atualizar_lista()
+    entrada_item.delete(0, tk.END)
+    entrada_quantidade.delete(0, tk.END)
+    entrada_preco.delete(0, tk.END)
 
 def remover_item():
     item = input("Digite o nome do item a ser removido: ").strip().lower()
