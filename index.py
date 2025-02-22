@@ -4,8 +4,27 @@ lista_compras = {}
 #Função de adicionar item
 def adicionar_item():
     item = input("Digite o nome do item: ").strip().lower()
-    quantidade = int(input("Digite a quantidade: "))
-    preco = float(input("Digite o preço unitário: "))
+    
+    while True:
+        try:
+            quantidade = int(input("Digite a quantidade: "))
+            if quantidade <= 0:
+                print("A quantidade deve ser um número inteiro maior que zero!")
+                continue
+            break
+        except ValueError:
+            print("Valor inválido! Digite um número inteiro!")
+    
+    
+    while True:
+        try:
+            preco = float(input("Digite o preço unitário: "))
+            if preco <= 0:
+                print("O valor deve ser maior que zero!")
+                continue
+            break
+        except ValueError:
+            print("Valor inválido!")
 
     #Lógica de verificação e adição do item à lista
     if item in lista_compras:
