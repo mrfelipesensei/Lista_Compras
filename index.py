@@ -24,6 +24,19 @@ def remover_item():
     else:
         print("Item não encontrado.")
 
+def exibir_lista():
+    if not lista_compras:
+        print("A lista de compras está vazia.")
+        return
+    
+    print("\nLista de compras: ")
+    total = 0
+    for item, (quantidade,preco) in lista_compras.items(): #Mostra os itens da lista
+        subtotal = quantidade * preco #Calcula o preço pela quantidade
+        total += subtotal #Soma o valor do item ao valor total
+        print(f" - {item}: {quantidade} unidade(s) | R$ {preco:.2f} cada | Subtotal R$ {subtotal:.2f}")
+
+    print(f"\nValor Total da compra: R$ {total:.2f}") #Exibe o valor da compra ao final
 
 def menu():
     while True:
@@ -34,6 +47,8 @@ def menu():
             adicionar_item()
         elif opcao == "2":
             remover_item()
+        elif opcao == "3":
+            exibir_lista()
         elif opcao == "4":
             print("Saindo do programa. Até mais!")
             break
