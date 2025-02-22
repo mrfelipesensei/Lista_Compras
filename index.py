@@ -1,5 +1,28 @@
+import json
+import os
+
+#Nome do arquivo onde os dados serão salvos
+ARQUIVO_JSON = "lista_compras.json"
+
 #Lista de compras (dicionário: item -> [quantidade, preço])
 lista_compras = {}
+
+#Função para salvar a lista em JSON
+def salvar_lista():
+    with open(ARQUIVO_JSON, "w") as file:
+        json.dump(lista_compras,file,indent=4)
+    print("Lista salva com sucesso!")
+
+#Função para carregar a lista do arquivo JSON
+def carregar_lista():
+    global lista_compras
+    if os.path.exists(ARQUIVO_JSON): #Verifica se o arquivo existe
+        with open(ARQUIVO_JSON, "r") as file:
+            lista_compras = json.load(file)
+        print("Lista carregada com sucesso!")
+    else:
+        print("Nenhuma lista encontrada. Criando uma nova.")
+
 
 #Função de adicionar item
 def adicionar_item():
@@ -33,6 +56,7 @@ def adicionar_item():
         lista_compras[item] = [quantidade,preco]
 
     print(f"{quantidade}x {item} adicionado(s) à lista de compras.")
+    salvar_lista() #Salva automaticamente após adicionar um item
 
 def remover_item():
     item = input("Digite o nome do item a ser removido: ").strip().lower()
@@ -40,6 +64,7 @@ def remover_item():
     if item in lista_compras:
         del lista_compras[item]
         print(f"{item} removido da lista")
+        salvar_lista() #Salva automaticamente após remover um item
     else:
         print("Item não encontrado.")
 
@@ -75,6 +100,8 @@ def editar_item():
     #Atualiza item na lista de compras
     lista_compras[item] = [nova_quantidade,novo_preco]
     print(f"{item} Atualizado! Nova quantidade: {nova_quantidade} e Novo preço: R$ {novo_preco:.2f}")
+    salvar_lista() #Salva automaticamente após editar um item
+
 
 def exibir_lista():
     if not lista_compras:
@@ -91,6 +118,7 @@ def exibir_lista():
     print(f"\nValor Total da compra: R$ {total:.2f}") #Exibe o valor da compra ao final
 
 def menu():
+    carregar_lista() #Carregar a lista ao iniciar o programa
     while True:
         print("\n1. Adicionar item\n2. Remover item\n3. Editar item\n4. Exibir lista\n5. Sair")
         opcao = input("Escolha uma opção: ")
