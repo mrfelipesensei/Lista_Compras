@@ -124,7 +124,8 @@ def limpar_campos():
 #Criar a janela principal
 janela = tk.Tk()
 janela.title("Lista de Compras")
-janela.geometry("400x450")
+janela.geometry("400x700")
+janela.config(bg="#f4f4f9")
 
 #Criar menu superior
 menu_bar = tk.Menu(janela)
@@ -140,33 +141,33 @@ arquivo_menu.add_command(label="Sair",command=janela.quit)
 menu_bar.add_cascade(label="Arquivo",menu=arquivo_menu)
 
 #Widgets de entrada
-tk.Label(janela, text="Item: ").pack()
-entrada_item = tk.Entry(janela)
+tk.Label(janela, text="Item: ", bg="#f4f4f9",font=("Arial",15)).pack(pady=5)
+entrada_item = tk.Entry(janela, font=("Arial",14),bd=2,relief="solid")
 entrada_item.pack()
 
-tk.Label(janela, text="Quantidade: ").pack()
-entrada_quantidade = tk.Entry(janela)
+tk.Label(janela, text="Quantidade: ", bg="#f4f4f9",font=("Arial",15), width=20).pack(pady=5)
+entrada_quantidade = tk.Entry(janela, font=("Arial",14),bd=2,relief="solid")
 entrada_quantidade.pack()
 
-tk.Label(janela, text="Preço unitário (R$):").pack()
-entrada_preco = tk.Entry(janela)
+tk.Label(janela, text="Preço unitário (R$):", bg="#f4f4f9",font=("Arial",15)).pack(pady=5)
+entrada_preco = tk.Entry(janela,  font=("Arial",14),bd=2,relief="solid")
 entrada_preco.pack()
 
 #Botões de ação
-btn_adicionar = tk.Button(janela, text="Adicionar", command=adicionar_item)
-btn_adicionar.pack()
+btn_adicionar = tk.Button(janela, text="Adicionar", command=adicionar_item, bg="#4CAF50", fg="white", font=("Arial", 15), width=20, height=2, relief="solid")
+btn_adicionar.pack(pady=5)
 
-btn_editar = tk.Button(janela, text="Preencher para Edição", command=preencher_campos)
-btn_editar.pack()
+btn_editar = tk.Button(janela, text="Preencher para Edição", command=preencher_campos, bg="#FFC107", fg="black", font=("Arial", 15), width=20, height=2, relief="solid")
+btn_editar.pack(pady=5)
 
-btn_atualizar = tk.Button(janela, text="Atualizar",command=editar_item)
-btn_atualizar.pack()
+btn_atualizar = tk.Button(janela, text="Atualizar",command=editar_item, bg="#2196F3", fg="white", font=("Arial", 15), width=20, height=2, relief="solid")
+btn_atualizar.pack(pady=5)
 
-btn_remover = tk.Button(janela, text="Remover",command=remover_item)
-btn_remover.pack()
+btn_remover = tk.Button(janela, text="Remover",command=remover_item, bg="#F44336", fg="white", font=("Arial", 15), width=20, height=2, relief="solid")
+btn_remover.pack(pady=5)
 
 #Lista de Compras
-lista_box = tk.Listbox(janela, width=50)
+lista_box = tk.Listbox(janela, width=50, height=10, font=("Arial", 17), bd=2, relief="solid")
 lista_box.pack()
 
 #Carregar dados e atualizar lista ao iniciar
