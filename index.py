@@ -55,9 +55,7 @@ def adicionar_item():
     print(f"{quantidade}x {item} adicionado(s) à lista de compras.")
     salvar_lista() #Salva automaticamente após adicionar um item
     atualizar_lista()
-    entrada_item.delete(0, tk.END)
-    entrada_quantidade.delete(0, tk.END)
-    entrada_preco.delete(0, tk.END)
+    limpar_campos()
 
 def remover_item():
     selecionado = lista_box.curselection()
@@ -83,9 +81,7 @@ def preencher_campos():
     item_texto = lista_box.get(selecionado[0])
     item_nome = item_texto.split("x ")[1].split(" - ")[0]
 
-    entrada_item.delete(0, tk.END)
-    entrada_quantidade.delete(0, tk.END)
-    entrada_preco.delete(0, tk.END)
+    limpar_campos()
 
     entrada_item.insert(0, item_nome)
     entrada_quantidade.insert(0, lista_compras[item_nome][0])
