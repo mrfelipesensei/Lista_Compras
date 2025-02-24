@@ -22,12 +22,22 @@ def carregar_lista():
             lista_compras = json.load(file)
     atualizar_lista()
 
+#Função para calcular o valor total da lista de compras
+def calcular_total():
+    total = 0.0
+    for item, (quantidade, preco) in lista_compras.items():
+        total += quantidade * preco
+    return total
 
 #Função de atualizar a exibição da lista na interface
 def atualizar_lista():
     lista_box.delete(0,tk.END) #Limpa a exibição
     for item, (quantidade, preco) in lista_compras.items():
         lista_box.insert(tk.END, f"{quantidade} x {item} - R$ {preco:.2f}")
+
+    #Atualiza o valor total
+    total = calcular_total()
+    label_total.config(text=f"Total: R$ {total:.2f}")
 
 #Função de adicionar item
 def adicionar_item():
@@ -120,7 +130,7 @@ def limpar_campos():
 #Criar a janela principal
 janela = tk.Tk()
 janela.title("Lista de Compras")
-janela.geometry("400x700")
+janela.geometry("360x700")
 janela.config(bg="#f4f4f9")
 
 #Criar menu superior
@@ -199,8 +209,12 @@ btn_remover = tk.Button(
 btn_remover.pack(pady=5)
 
 #Lista de Compras
-lista_box = tk.Listbox(janela, width=50, height=10, font=("Arial", 17), bd=2, relief="solid")
+lista_box = tk.Listbox(janela, width=50, height=7, font=("Arial", 17), bd=2, relief="solid")
 lista_box.pack(padx=5,pady=5)
+
+#Label para exibir o total
+label_total = tk.Label(janela, text="Total: R$ 0.00", bg="#f4f4f9", font=("Arial", 18))
+label_total.pack(pady=3)
 
 #Carregar dados e atualizar lista ao iniciar
 carregar_lista()
